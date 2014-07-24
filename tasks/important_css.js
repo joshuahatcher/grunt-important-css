@@ -40,9 +40,11 @@ module.exports = function (grunt) {
 
         var css = rework(src).use(function(values) {
             values.rules.forEach(function(r) {
-              r.declarations.forEach(function(d) {
-                d.value += ' !important';
-              });
+              if (r.declarations) {
+                r.declarations.forEach(function(d) {
+                  d.value += ' !important';
+                });
+              }
             });
         }).toString();
 

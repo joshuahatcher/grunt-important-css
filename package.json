@@ -1,6 +1,6 @@
 {
   "name": "grunt-important-css",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A lightweight npm plugin to add !important tags to the end of all rules of a CSS file",
   "homepage": "https://github.com/joshuahatcher/grunt-important-css",
   "repository": "https://github.com/joshuahatcher/grunt-important-css",
