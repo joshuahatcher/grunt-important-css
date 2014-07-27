@@ -42,7 +42,11 @@ module.exports = function (grunt) {
             values.rules.forEach(function(r) {
               if (r.declarations) {
                 r.declarations.forEach(function(d) {
-                  d.value += ' !important';
+
+                  // Don't add important twice
+                  if (d.value.indexOf('!important') === -1) {
+                    d.value += ' !important';
+                  }                 
                 });
               }
             });
