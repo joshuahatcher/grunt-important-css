@@ -39,17 +39,7 @@ module.exports = function (grunt) {
         var src = grunt.file.read(filepath);
 
         var css = rework(src).use(function(values) {
-            values.rules.forEach(function(r) {
-              if (r.declarations) {
-                r.declarations.forEach(function(d) {
-
-                  // Don't add important twice
-                  if (d.value.indexOf('!important') === -1) {
-                    d.value += ' !important';
-                  }                 
-                });
-              }
-            });
+            changeRules(values.rules);
         }).toString();
 
         // Write the destination file.
@@ -59,6 +49,23 @@ module.exports = function (grunt) {
         grunt.log.writeln('File "' + file.dest + '" created.');
       });
     });
+
+    // Fix nested rules
+    function changeRules(rules) {
+      rules.forEach(function(r) {
+        if (r.declarations) {
+          r.declarations.forEach(function(d) {
+            // Don't add important twice
+            if (d.value && d.value.indexOf('!important') === -1) {
+                d.value += ' !important';
+            }
+          });
+        }
+        if (r.rules) {
+            changeRules(r.rules);
+        }
+      });
+    }
   });
 
 };
