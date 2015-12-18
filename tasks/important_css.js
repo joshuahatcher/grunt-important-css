@@ -53,6 +53,9 @@ module.exports = function (grunt) {
     // Fix nested rules
     function changeRules(rules) {
       rules.forEach(function(r) {
+        if (r.type === 'font-face') {
+          return;
+        }
         if (r.declarations) {
           r.declarations.forEach(function(d) {
             // Don't add important twice
